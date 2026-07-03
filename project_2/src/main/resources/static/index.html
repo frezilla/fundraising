@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <title>Levée de dons</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/jquery-4.0.0.min.js"></script>
+        <link rel="stylesheet" href="css/style.css"/>
+    </head>
+    <body>
+        <div class="screen">
+            <div class="header">
+                <h1>Vos dons deviennent des projets concrets</h1>
+                <p>Chaque contribution rapproche un projet de sa réaisation</p>
+            </div>
+
+            <div class="card">
+                <div style="font-size: 0.9rem; color: var(--muted); text-transform: uppercase;">
+                    Montant total collecté
+                </div>
+                <div class="amount" id="amount"></div>
+                <div class="progress">
+                    <div class="progress-bar" id="progress"></div>
+                </div>
+                <div class="info" id="infoText">
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 style="margin-top:0;">Projets réalisables</h2>
+                <div class="projects" id="projects"></div>
+            </div>
+        </div>
+
+        <script>
+            let OBJECTIVE = 0;
+            let PROJECTS = [];
+            let TOTAL = 0;
+            const URL_API = "http://localhost:8080";
+
+            
+            function euro(v) {
+                return new Intl.NumberFormat("fr-FR").format(v) + " €";
+            }
+
+            function init() {
+                loadAmount();        
+                loadProjects();
+                renderProjects();
+            }
+            
+            function loadAmount() {
+                $.ajax({
+                    url : URL_API + "/api/total",
+                    dataType: 'json',
+                    async: false,
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log("Error : " + errorThrown);
+                    },
+                    success: function (datas, textStatus, jqXHR) {
+                        if (datas) {
+                            TOTAL = datas.total;
+                        }
+                    }
+                });
+            }
+
+            function loadProjects() {
+                $.ajax({
+                    url: URL_API + "/api/project",
+                    dataType: 'json',
+                    async: false,
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log("Error : " + errorThrown);
+                    },
+                    success: function (datas, textStatus, jqXHR) {
+                        if (datas) {
+                            PROJECTS = datas;
+                            let amount = 0;
+                            PROJECTS.forEach(p => {
+                                amount = p.budget;
+                            });
+                            OBJECTIVE = amount;
+                        }
+                    }
+                });
+            }
+            
+            function renderProjects() {
+                $("#projects").html("");
+                
+                PROJECTS.forEach((p, i) => {
+                    const prev = i === 0 ? 0 : PROJECTS[i - 1].budget;
+                    
+                    let status = "red";
+                    let pStatus = "pred";
+                    let label = "A venir";
+                    let ratio = 0;
+                    
+                    if (TOTAL >= p.budget) {
+                        status = "green";
+                        pStatus = "pgreen";
+                        label = "Financé";
+                        ratio = 100;
+                    } else if (TOTAL > prev) {
+                        status = "yellow";
+                        pStatus = "pyellow";
+                        label = "En cours";
+                        ratio = ((TOTAL -prev) / (p.budget - prev)) * 100;
+                    }
+                    
+                    const mainElt = document.createElement("div")
+                    mainElt.className = "project " + pStatus;
+                    mainElt.innerHTML = `
+                        <h3>${p.name}</h3>
+                        <p>Description : ${p.description}</p>
+                        <p>Budget : ${euro(p.budget)}</p>
+                        <div class="status ${status}">${label}</div>
+                        <div class="bar"><span style="width:${ratio}%"></span></div>
+                    `;
+                    $("#projects").append(mainElt);
+                });
+            }
+            
+            function update() {
+                loadAmount();
+                $("#amount").text(euro(TOTAL));
+                
+                const progress = (TOTAL / OBJECTIVE) * 100;
+                $("#progress").css("width", progress + "%");
+                
+                const next = PROJECTS.find(p => TOTAL < p.budget);
+                if (next) {
+                    const remaining = next.budget - TOTAL;
+                    $("#infoText").html(`Plus que <span class="highlight">${euro(remaining)}</span> pour financer complètement le projet &#171;<span class="highlight">${next.name}</span>&raquo;.`);
+                } else {
+                    $("#infoText").html(`<span class="highlight">Tous les projets sont financés 🎉</span>`);
+                }
+                renderProjects();
+            }
+
+            $(document).ready(function () {
+                init();
+                setInterval(update, 1000);
+                //update();
+            });
+        </script>
+    </body>
+</html>

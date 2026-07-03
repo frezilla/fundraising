@@ -1,0 +1,151 @@
+:root {
+    --bg: #f6f9fc;
+    --card: #ffffff;
+    --border: #e3e8ef;
+    --text: #1e293b;
+    --muted: #64748b;
+    --accent: #38bdf8;
+    --accent2: #00cc00;
+
+}
+
+body {
+    margin: 0;
+    font-family: Inter, Arial, Verdana, sans-serif;
+    background: var(--bg);
+    background: url(/pics/bg.png) repeat left top scroll var(--bg);
+    color: var(--text);
+}
+
+.amount {
+    font-size: 4rem;
+    font-weight: 900;
+    margin: 10px 0;
+}
+
+.bar {
+    height: 20px;
+    background: #f1f5f9;
+    border-radius: 999px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.bar span {
+    height: 100%;
+    display: block;
+    width: 0;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transition: width 0.8s ease;
+}
+
+.card {
+    background: var(--card);
+    border-radius: 18px;
+    padding: 28px;
+    border: 1px solid var(--border);
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 3rem;
+    font-weight: 800;
+}
+
+.highlight {
+    color: var(--text);
+    font-weight: 600;
+}
+
+.header p {
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 1.2rem;
+}
+
+.info {
+    margin-top: 16px;
+    color: var(--muted);
+    font-size: 1.1rem;
+}
+
+.progress {
+    height: 20px;
+    border-radius: 999px;
+    background: #eef2f7;
+    overflow: hidden;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transition: width 0.8s ease;
+}
+
+.project {
+    padding: 22px;
+    position: relative;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    background: #fff;
+}
+
+.project h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.project p {
+    color: var(--muted);
+    margin: 8px 0 16px;
+}
+
+.projects {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.screen {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    height: 100vh;
+}
+
+.status {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.green {
+    background: #dcfce7;
+    color: #15803d;
+}
+.yellow {
+    background: #fef3c7;
+    color: #b45309;
+}
+.red {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.pgreen {
+    background: #f0fff0;
+
+}
+.pyellow {
+    background: #fff;
+    border: 1px solid #aaa;
+}
+.pred {
+    background: #ececec;
+}
