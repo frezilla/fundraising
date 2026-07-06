@@ -1,27 +1,40 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Levée de fonds</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">        
+        <link rel="stylesheet" href="css/style.css"/>
+        <script src="js/jquery-4.0.0.min.js"></script>
     </head>
     <body>
-        <form onsubmit="event.preventDefault(); sendPut();">
-            <input type="number" id="total" name="total">
-            <button type="submit">Submit</button>
+        <form class="my-form" onsubmit="event.preventDefault(); submitForm();">
+            <label for="total">Total collecté :</label><input type="number" id="total" name="total" value="0" step="0.01">
+            <label for="amount">Montant du don :</label><input type="number" id="amount" name="amount" value="0" step="0.01">
+            <button type="submit" name="submit" id="submit">Valider</button>
         </form>
-        
         <script>
-            async function sendPut() {
-                const res = await fetch('/api/total/update', {
+            function sendPut(number) {
+                console.log(number);
+                const res = fetch('/api/total/update', {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
-                        total: document.getElementById('total').value 
+                        total: number 
                     })
                 });
             }
+            
+            function submitForm() {
+                const total = Number($("#total").val());
+                const amount = Number($("#amount").val());
+                console.log(total);
+                console.log(amount);
+                const sum = total + amount;
+                $("#amount").val(0)
+                $("#total").val(sum);
+                sendPut(sum);
+            }
         </script>
-
     </body>
 </html>

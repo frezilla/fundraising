@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-        <title>Levée de dons</title>
+        <title>Levée de fonds</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="js/jquery-4.0.0.min.js"></script>
         <link rel="stylesheet" href="css/style.css"/>
+        <script src="js/jquery-4.0.0.min.js"></script>
     </head>
     <body>
         <div class="screen">
@@ -27,7 +27,7 @@
             </div>
 
             <div class="card">
-                <h2 style="margin-top:0;">Projets réalisables</h2>
+                <h2 style="margin-top:0;">Projets</h2>
                 <div class="projects" id="projects"></div>
             </div>
         </div>
@@ -113,8 +113,8 @@
                     mainElt.className = "project " + pStatus;
                     mainElt.innerHTML = `
                         <h3>${p.name}</h3>
-                        <p>Description : ${p.description}</p>
-                        <p>Budget : ${euro(p.budget)}</p>
+                        <p>${p.description}</p>
+                        <p>Objectif : ${euro(p.budget)}</p>
                         <div class="status ${status}">${label}</div>
                         <div class="bar"><span style="width:${ratio}%"></span></div>
                     `;
@@ -141,8 +141,7 @@
 
             $(document).ready(function () {
                 init();
-                setInterval(update, 1000);
-                //update();
+                setInterval(update, 500);
             });
         </script>
     </body>

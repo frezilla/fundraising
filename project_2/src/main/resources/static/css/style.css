@@ -10,11 +10,15 @@
 }
 
 body {
-    margin: 0;
-    font-family: Inter, Arial, Verdana, sans-serif;
+    align-items: center;
     background: var(--bg);
     background: url(/pics/bg.png) repeat left top scroll var(--bg);
     color: var(--text);
+    display: flex;
+    font-family: Inter, Arial, Verdana, sans-serif;
+    justify-content: center;
+    margin: 0;
+    min-height: 100vh;
 }
 
 .amount {
@@ -67,6 +71,48 @@ body {
     margin-top: 16px;
     color: var(--muted);
     font-size: 1.1rem;
+}
+
+.my-form {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.my-form label {
+  margin-top: 1rem;
+  font-weight: bold;
+  color: #2f3640;
+}
+
+.my-form input,
+.my-form textarea {
+  margin-top: 0.5rem;
+  padding: 0.8rem;
+  border: 1px solid #dcdde1;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.my-form button {
+  margin-top: 1.5rem;
+  padding: 0.8rem;
+  border: none;
+  background-color: #40739e;
+  color: white;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.my-form button:hover {
+  background-color: #273c75;
 }
 
 .progress {
@@ -149,3 +195,4 @@ body {
 .pred {
     background: #ececec;
 }
+

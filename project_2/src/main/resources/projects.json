@@ -1,22 +1,12 @@
 [
     {
-        "name": "projet 1",
-        "description": "description",
-        "budget" : 1000
+        "name": "Faire vivre les arts",
+        "description": "Réaliser des concerts, spectacles et représentations artistiques dans le manège de l'école",
+        "budget" : 5000
     },
     {
-        "name": "projet 2",
-        "description": "description",
-        "budget" : 2000
-    },
-    {
-        "name": "projet 3",
-        "description": "description",
-        "budget" : 3000
-    },
-    {
-        "name": "projet 4",
-        "description": "description",
-        "budget" : 4000
+        "name": "Nous faire connaître",
+        "description": "Renforcer notre communication pour partager notre modèle éductif",
+        "budget" : 10000
     }
 ]
